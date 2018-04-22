@@ -28,18 +28,34 @@ def genTimeString(date,hour):
 def getByTime(df,date,hour):
     return df[df.time == genTimeString(date,hour)]
 
-siteNum_aq = 35
-siteNum_me = 18
-startDate = 1
-endDate = 20
-df_aq = genDataFrame('bj','airquality',startDate,endDate)
-df_me = genDataFrame('bj','meteorology',startDate,endDate)
-stationNames = df_aq['station_id'].unique()
-dfs_station = []
-for i in range(0,len(stationNames)):
-    df = df_aq[df_aq.station_id == stationNames[i]]
-    df = df.fillna(method='pad')
-    df = df.fillna(method='bfill')
-    dfs_station.append(df)
+def genFrames(startDate,endDate):
+    siteNum_aq = 35
+    siteNum_me = 18
+    df_aq = genDataFrame('bj','airquality',startDate,endDate)
+    df_me = genDataFrame('bj','meteorology',startDate,endDate)
 
-print(dfs_station[0])
+    stationNames_aq = df_aq['station_id'].unique()
+    df_aq_station = []
+    for i in range(0,len(stationNames_aq)):
+        df = df_aq[df_aq.station_id == stationNames_aq[i]]
+        df = df.fillna(method='pad')
+        df = df.fillna(method='bfill')
+        df_aq_station.append(df)
+    #print(df_aq_station[0])
+
+    stationNames_me = df_me['station_id'].unique()
+    df_me_station = []
+    for i in range(0,len(stationNames_me)):
+        df = df_me[df_me.station_id == stationNames_me[i]]
+        df = df.fillna(method='pad')
+        df = df.fillna(method='bfill')
+        df_me_station.append(df)
+    #print(df_me_station[0])
+
+    return df_aq_station,df_me_station
+
+res = genFrames(1,20)
+res_aq = res[0]
+res_me = res[1]
+print(res_aq[0])
+print(res_me[0])
