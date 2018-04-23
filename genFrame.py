@@ -60,6 +60,8 @@ def genFrames(startDate,endDate):
     stationNames_aq = df_aq['station_id'].unique()
     df_aq_station = []
     for i in range(0,len(stationNames_aq)):
+        if (stationNames_aq[i] == 'zhiwuyuan_aq'):
+            continue
         df = df_aq[df_aq.station_id == stationNames_aq[i]]
         df = df.fillna(method='pad')
         df = df.fillna(method='bfill')
@@ -150,8 +152,10 @@ def genFrames(startDate,endDate):
 
     return df_aq_station,df_me_station
 
+'''
 res = genFrames(1,20)
 res_aq = res[0]
 res_me = res[1]
 print(res_aq[0])
 print(res_me[0])
+'''
