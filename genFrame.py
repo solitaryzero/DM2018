@@ -114,7 +114,7 @@ def genFrames_bj(startDate, endDate, save):
             tmp_old[j][0] = siteLoc[0]  # 经度
             tmp_old[j][1] = siteLoc[1]  # 纬度
 			
-			if ((j % 24 == 0) and (j != 0)):
+            if ((j % 24 == 0) and (j != 0)):
                 day += 1
                 print(year, month, day)
             if (day > monthLength[month - 1]):
@@ -124,7 +124,7 @@ def genFrames_bj(startDate, endDate, save):
                     month = 1
                     year += 1
 					
-			tmp_old[j][2] = year  # 年
+            tmp_old[j][2] = year  # 年
             tmp_old[j][3] = month  # 月
             tmp_old[j][4] = day  # 日
 			
@@ -278,7 +278,7 @@ def genFrames_bj(startDate, endDate, save):
             tmp_old[j][0] = siteLoc[0]  # 经度
             tmp_old[j][1] = siteLoc[1]  # 纬度
 			
-			if ((j % 24 == 0) and (j != 0)):
+            if ((j % 24 == 0) and (j != 0)):
                 day += 1
                 print(i, year, month, day)
             if (day > monthLength[month - 1]):
@@ -288,7 +288,7 @@ def genFrames_bj(startDate, endDate, save):
                     month = 1
                     year += 1
 					
-			tmp_old[j][2] = year  # 年
+            tmp_old[j][2] = year  # 年
             tmp_old[j][3] = month  # 月
             tmp_old[j][4] = day  # 日
 			
@@ -439,7 +439,7 @@ def genFrames_ld(startDate, endDate, save):     #TODO
             tmp_old[j][0] = siteLoc[0]  # 经度
             tmp_old[j][1] = siteLoc[1]  # 纬度
 			
-			if ((j % 24 == 0) and (j != 0)):
+            if ((j % 24 == 0) and (j != 0)):
                 day += 1
                 print(name, year, month, day)
             if (day > monthLength[month - 1]):
@@ -449,7 +449,7 @@ def genFrames_ld(startDate, endDate, save):     #TODO
                     month = 1
                     year += 1
 					
-			tmp_old[j][2] = year  # 年
+            tmp_old[j][2] = year  # 年
             tmp_old[j][3] = month  # 月
             tmp_old[j][4] = day  # 日
 			
@@ -611,12 +611,12 @@ def readProcessedData_ld():
 
     return df_aq_station
 
+res_bj = genFrames_bj(1, 24, True)
 '''
-#res_bj = genFrames_bj(1, 22, True)
 res_bj = readProcessedData_bj()
 res_aq = res_bj[0]
 res_me = res_bj[1]
 print(res_aq[0])
 print(res_me[0])
 '''
-genFrames_ld(1,22,True)
+genFrames_ld(1,24,True)
