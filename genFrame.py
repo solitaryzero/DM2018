@@ -113,9 +113,6 @@ def genFrames_bj(startDate, endDate, save):
         for j in range(0, (endDate_old - startDate_old + 1) * 24):
             tmp_old[j][0] = siteLoc[0]  # 经度
             tmp_old[j][1] = siteLoc[1]  # 纬度
-            tmp_old[j][2] = year  # 年
-            tmp_old[j][3] = month  # 月
-            tmp_old[j][4] = day  # 日
             tmp_old[j][5] = j % 24  # 小时
             hour = j % 24
             tmp_day = day
@@ -181,6 +178,10 @@ def genFrames_bj(startDate, endDate, save):
                 if (month > 12):
                     month = 1
                     year += 1
+					
+			tmp_old[j][2] = year  # 年
+            tmp_old[j][3] = month  # 月
+            tmp_old[j][4] = day  # 日
 
         newdf_old = pd.DataFrame(tmp_old, columns=columnList_aq)
 
@@ -275,9 +276,6 @@ def genFrames_bj(startDate, endDate, save):
         for j in range(0, (endDate_old - startDate_old + 1) * 24):
             tmp_old[j][0] = siteLoc[0]  # 经度
             tmp_old[j][1] = siteLoc[1]  # 纬度
-            tmp_old[j][2] = year  # 年
-            tmp_old[j][3] = month  # 月
-            tmp_old[j][4] = day  # 日
             tmp_old[j][5] = j % 24  # 小时
             hour = j % 24
             tmp_day = day
@@ -333,6 +331,10 @@ def genFrames_bj(startDate, endDate, save):
                 if (month > 12):
                     month = 1
                     year += 1
+					
+			tmp_old[j][2] = year  # 年
+            tmp_old[j][3] = month  # 月
+            tmp_old[j][4] = day  # 日
 
         newdf_old = pd.DataFrame(tmp_old, columns=columnList_me)
 
@@ -434,9 +436,6 @@ def genFrames_ld(startDate, endDate, save):     #TODO
         for j in range(0, (endDate_old - startDate_old + 1) * 24):
             tmp_old[j][0] = siteLoc[0]  # 经度
             tmp_old[j][1] = siteLoc[1]  # 纬度
-            tmp_old[j][2] = year  # 年
-            tmp_old[j][3] = month  # 月
-            tmp_old[j][4] = day  # 日
             tmp_old[j][5] = j % 24  # 小时
             hour = j % 24
             tmp_day = day
@@ -496,6 +495,10 @@ def genFrames_ld(startDate, endDate, save):     #TODO
                 if (month > 12):
                     month = 1
                     year += 1
+					
+			tmp_old[j][2] = year  # 年
+            tmp_old[j][3] = month  # 月
+            tmp_old[j][4] = day  # 日
 
         newdf_old = pd.DataFrame(tmp_old, columns=columnList_aq)
 
