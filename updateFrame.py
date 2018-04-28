@@ -4,12 +4,17 @@ import matplotlib as plt
 from sklearn import datasets, linear_model
 
 
-def getFileName(city, type, date):
-    date_str = str(date)
-    if (date < 10):
-        date_str = '0' + date_str
-    return './data/' + city + '_' + type + '_' + '2018-04-' + date_str + '-0-' + '2018-04-' + date_str + '-23.csv'
+def getFileName(city, type, day):
+    month_str = '04'
+    if (day > 30):
+        month_str = '05'
+        day = day - 30
 
+    day_str = str(day)
+    if (day < 10):
+        day_str = '0'+day_str
+
+    return './data/' + city + '_' + type + '_' + '2018-'+ month_str + '-' + day_str + '-0-' + '2018-'+ month_str + '-' + day_str + '-23.csv'
 
 def genDataFrame(city, type, startDate, endDate):
     df = pd.read_csv(filepath_or_buffer=getFileName(city, type, startDate), header=0, index_col='id')

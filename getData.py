@@ -1,11 +1,17 @@
 import requests
 
 def fetch(type_str,city_str,day):
+    month_str = '04'
+    if (day > 30):
+        month_str = '05'
+        day = day - 30
+
     day_str = str(day)
     if (day < 10):
         day_str = '0'+day_str
-    startTime = '2018-04-' + day_str + '-0'
-    endTime = '2018-04-' + day_str + '-23'
+
+    startTime = '2018-'+month_str + '-' + day_str + '-00'
+    endTime = '2018-'+month_str + '-' + day_str + '-23'
     url = baseUrl + type_str + '/' + city_str + '/' + startTime + '/' + endTime + '/2k0d1d8'
     respones = requests.get(url)
 
