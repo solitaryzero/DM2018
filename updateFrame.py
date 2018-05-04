@@ -110,9 +110,9 @@ def genFrames_bj(startDate, endDate, save):
             tmp[j][1] = siteLoc[1]  # 纬度
             tmp[j][2] = 2018  # 年
             tmp[j][3] = int(((j / 24)+startDate-1) / 30) + 4  # 月
-            tmp[j][4] = int(j / 24) % 30 + startDate  # 日
+            tmp[j][4] = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
             tmp[j][5] = j % 24  # 小时
-            day = int(j / 24) % 30 + startDate
+            day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
             month = int(((j / 24)+startDate-1) / 30) + 4
             hour = j % 24
             forward = False
@@ -140,7 +140,7 @@ def genFrames_bj(startDate, endDate, save):
                             month -= 1
                             day = monthLength[month - 1]
                 if (month == 3):
-                    day = int(j / 24) % 30 + startDate
+                    day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
                     month = int(((j / 24)+startDate-1) / 30) + 4
                     hour = j % 24
                     forward = True
@@ -187,9 +187,9 @@ def genFrames_bj(startDate, endDate, save):
             tmp[j][1] = siteLoc[1]  # 纬度
             tmp[j][2] = 2018  # 年
             tmp[j][3] = int(((j / 24)+startDate-1) / 30) + 4  # 月
-            tmp[j][4] = int(j / 24) % 30 + startDate  # 日
+            tmp[j][4] = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
             tmp[j][5] = j % 24  # 小时
-            day = int(j / 24) % 30 + startDate
+            day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
             month = int(((j / 24)+startDate-1) / 30) + 4
             hour = j % 24
             forward = False
@@ -211,7 +211,7 @@ def genFrames_bj(startDate, endDate, save):
                             month -= 1
                             day = monthLength[month - 1]
                 if (month == 3):
-                    day = int(j / 24) % 30 + startDate
+                    day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
                     month = int(((j / 24)+startDate-1) / 30) + 4
                     hour = j % 24
                     forward = True
@@ -267,9 +267,9 @@ def genFrames_ld(startDate, endDate, save):  # TODO
             tmp[j][1] = siteLoc[1]  # 纬度
             tmp[j][2] = 2018  # 年
             tmp[j][3] = int(((j / 24)+startDate-1) / 30) + 4  # 月
-            tmp[j][4] = int(j / 24) % 30 + startDate  # 日
+            tmp[j][4] = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
             tmp[j][5] = j % 24  # 小时
-            day = int(j / 24) % 30 + startDate
+            day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
             month = int(((j / 24)+startDate-1) / 30) + 4
             hour = j % 24
             forward = False
@@ -294,7 +294,7 @@ def genFrames_ld(startDate, endDate, save):  # TODO
                             month -= 1
                             day = monthLength[month - 1]
                 if (month == 3):
-                    day = int(j / 24) % 30 + startDate
+                    day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
                     month = int(((j / 24)+startDate-1) / 30) + 4
                     hour = j % 24
                     forward = True

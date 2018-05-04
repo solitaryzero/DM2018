@@ -10,7 +10,7 @@ def fetch(type_str,city_str,day):
     if (day < 10):
         day_str = '0'+day_str
 
-    startTime = '2018-'+month_str + '-' + day_str + '-00'
+    startTime = '2018-'+month_str + '-' + day_str + '-0'
     endTime = '2018-'+month_str + '-' + day_str + '-23'
     url = baseUrl + type_str + '/' + city_str + '/' + startTime + '/' + endTime + '/2k0d1d8'
     respones = requests.get(url)
