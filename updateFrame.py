@@ -161,9 +161,9 @@ def genFrames_bj(startDate, endDate, save):
             tmp[j][11] = datLine['SO2_Concentration']
         newdf = pd.DataFrame(tmp, columns=columnList_aq)
         if (save):
-            olddf = pd.read_csv('./processedData/' + stationNames_aq[i] + '.csv', header=0, index_col=0)
+            olddf = pd.read_csv('./processedData/beijing/' + stationNames_aq[i] + '.csv', header=0, index_col=0)
             fulldf = pd.concat([olddf,newdf], ignore_index=True)
-            fulldf.to_csv('./processedData/' + stationNames_aq[i] + '.csv')
+            fulldf.to_csv('./processedData/beijing/' + stationNames_aq[i] + '.csv')
         df_aq_station.append(newdf)
     # print(df_aq_station[0])
 
@@ -225,9 +225,9 @@ def genFrames_bj(startDate, endDate, save):
             tmp[j][11] = datLine['wind_speed']
         newdf = pd.DataFrame(tmp, columns=columnList_me)
         if (save):
-            olddf = pd.read_csv('./processedData/' + stationNames_me[i] + '.csv', header=0, index_col=0)
+            olddf = pd.read_csv('./processedData/beijing/' + stationNames_me[i] + '.csv', header=0, index_col=0)
             fulldf = pd.concat([olddf, newdf], ignore_index=True)
-            fulldf.to_csv('./processedData/' + stationNames_me[i] + '.csv')
+            fulldf.to_csv('./processedData/beijing/' + stationNames_me[i] + '.csv')
         df_me_station.append(newdf)
     print(df_me_station[0])
 
@@ -341,11 +341,11 @@ def readProcessedData_bj():
     df_aq_station = []
     df_me_station = []
     for i in range(0, len(locList_aq)):
-        df = pd.read_csv(filepath_or_buffer='./processedData/' + locList_aq[i] + '.csv', header=0, index_col=0)
+        df = pd.read_csv(filepath_or_buffer='./processedData/beijing/' + locList_aq[i] + '.csv', header=0, index_col=0)
         df_aq_station.append(df)
 
     for i in range(0, len(locList_me)):
-        df = pd.read_csv(filepath_or_buffer='./processedData/' + locList_me[i] + '.csv', header=0, index_col=0)
+        df = pd.read_csv(filepath_or_buffer='./processedData/beijing/' + locList_me[i] + '.csv', header=0, index_col=0)
         df_me_station.append(df)
 
     return df_aq_station, df_me_station

@@ -32,7 +32,7 @@ with open('London_AirQuality_Stations.csv', 'r') as locFile:
         line = locFile.readline()
 
 for name in locList_aq:
-    filename = './processedData/'+name+'.csv'
+    filename = './processedData/beijing/'+name+'.csv'
     df = pd.read_csv(filename,header=0,index_col=0)
     df = df[df < 10000]
     df.fillna(method='pad',inplace=True)
@@ -41,7 +41,7 @@ for name in locList_aq:
     df.to_csv(filename)
 
 for name in locList_me:
-    filename = './processedData/'+name+'.csv'
+    filename = './processedData/beijing/'+name+'.csv'
     df = pd.read_csv(filename,header=0,index_col=0)
     df = df[df < 10000]
     df.fillna(method='pad',inplace=True)

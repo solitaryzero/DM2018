@@ -1,11 +1,11 @@
 import requests
 
-files = {'files': open('sample_submission.csv', 'rb')}
+files = {'files': open('submit.csv', 'rb')}
 data = {
-    "user_id": "solitaryzero",
+    "user_id": "lliangchenc",
     "team_token": "c7e4335fcf7fced7dd1fc6a7e2adf50057451d226a7e57b759cb62577c72502a",
-    "description": 'i am description',
-    "filename": "'i am filename",
+    "description": '5-8-submit',
+    "filename": "submit.csv",
 }
 url = 'https://biendata.com/competition/kdd_2018_submit/'
 response = requests.post(url, files=files, data=data)
