@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib as plt
 from sklearn import datasets, linear_model
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Lasso
 from sklearn import metrics
 
 def readData_aq_bj(name):
@@ -76,6 +76,8 @@ def linearReg_bj(siteName):
     #print("MSE:", metrics.mean_squared_error(y_test, y_pred))
     # 用scikit-learn计算RMSE
     #print("RMSE:", np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+    #print(linreg.intercept_)
+    #print(linreg.coef_)
 
     X_input = np.zeros((48, pollutionType * dayRange * 24))
     Y_output = np.zeros((1, pollutionType))
