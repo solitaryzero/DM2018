@@ -90,11 +90,13 @@ def genFrames_bj(startDate, endDate, save):
 
     monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
+
     stationNames_aq = df_aq['station_id'].unique()
     columnList_aq = ['longitude', 'latitude', 'year', 'month', 'day', 'hour', 'PM25_Concentration',
                      'PM10_Concentration', 'NO2_Concentration', 'CO_Concentration',
                      'O3_Concentration', 'SO2_Concentration']
     df_aq_station = []
+
     for i in range(0, len(stationNames_aq)):
         df = df_aq[df_aq.station_id == stationNames_aq[i]]
         df = df.fillna(method='pad')
@@ -216,7 +218,7 @@ def genFrames_bj(startDate, endDate, save):
                     hour = j % 24
                     forward = True
 
-            datLine = df[df.time == genTimeString(2018, month, day, hour)]
+            datLine = df[df.time == genTimeString(2018, month, day, hour)].head(1)
             tmp[j][6] = weatherList.index(datLine['weather'].values)
             tmp[j][7] = datLine['temperature']
             tmp[j][8] = datLine['pressure']
@@ -381,4 +383,4 @@ res_me = res_bj[1]
 print(res_aq[0])
 print(res_me[0])
 '''
-genFrames_ld(startDay, endDay, True)
+#genFrames_ld(startDay, endDay, True)
