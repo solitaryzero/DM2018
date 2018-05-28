@@ -1,3 +1,4 @@
+#encoding=utf-8
 import pandas as pd
 import numpy as np
 import matplotlib as plt
@@ -99,6 +100,7 @@ def genFrames_bj(startDate, endDate, save):
 
     for i in range(0, len(stationNames_aq)):
         df = df_aq[df_aq.station_id == stationNames_aq[i]]
+        df = df.interpolate()
         df = df.fillna(method='pad')
         df = df.fillna(method='bfill')
 
@@ -179,6 +181,7 @@ def genFrames_bj(startDate, endDate, save):
 
     for i in range(0, len(stationNames_me)):
         df = df_me[df_me.station_id == stationNames_me[i]]
+        df = df.interpolate()
         df = df.fillna(method='pad')
         df = df.fillna(method='bfill')
 
@@ -258,6 +261,7 @@ def genFrames_ld(startDate, endDate, save):  # TODO
     df_aq_station = []
     for name in stationNames_aq:
         df = df_aq[df_aq.station_id == name]
+        df = df.interpolate()
         df = df.fillna(method='pad')
         df = df.fillna(method='bfill')
         df = df.fillna(-1)

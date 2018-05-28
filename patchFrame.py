@@ -35,6 +35,7 @@ for name in locList_aq:
     filename = './processedData/beijing/'+name+'.csv'
     df = pd.read_csv(filename,header=0,index_col=0)
     df = df[df < 10000]
+    df = df.interpolate()
     df.fillna(method='pad',inplace=True)
     df.fillna(method='bfill',inplace=True)
     df.fillna(-1,inplace=True)
@@ -44,6 +45,7 @@ for name in locList_me:
     filename = './processedData/beijing/'+name+'.csv'
     df = pd.read_csv(filename,header=0,index_col=0)
     df = df[df < 10000]
+    df = df.interpolate()
     df.fillna(method='pad',inplace=True)
     df.fillna(method='bfill',inplace=True)
     df.fillna(-1,inplace=True)
@@ -53,6 +55,7 @@ for name in locList_aq_ld:
     filename = './processedData/london/'+name+'.csv'
     df = pd.read_csv(filename,header=0,index_col=0)
     df = df[df < 10000]
+    df = df.interpolate()
     df.fillna(method='pad',inplace=True)
     df.fillna(method='bfill',inplace=True)
     df.fillna(-1,inplace=True)

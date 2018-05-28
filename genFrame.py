@@ -1,6 +1,7 @@
+#encoding=utf-8
 import pandas as pd
 import numpy as np
-import matplotlib as plt
+#import matplotlib as plt
 from sklearn import datasets, linear_model
 
 
@@ -97,12 +98,16 @@ def genFrames_bj(startDate, endDate, save):
     df_aq_station = []
     for i in range(0, len(stationNames_aq)):
         df = df_aq[df_aq.station_id == stationNames_aq[i]]
+        df = df.interpolate()
         df = df.fillna(method='pad')
         df = df.fillna(method='bfill')
+        
 
         df_old = df_aq_old_bj[df_aq_old_bj.stationId == stationNames_aq[i]]
+        df_old = df_old.interpolate()
         df_old = df_old.fillna(method='pad')
         df_old = df_old.fillna(method='bfill')
+        
 
         if (stationNames_aq[i] == 'zhiwuyuan_aq'):
             df_old_backup = df_aq_old_bj[df_aq_old_bj.stationId == stationNames_aq[i-1]]
@@ -265,12 +270,16 @@ def genFrames_bj(startDate, endDate, save):
 
     for i in range(0, len(stationNames_me)):
         df = df_me[df_me.station_id == stationNames_me[i]]
+        df = df.interpolate()
         df = df.fillna(method='pad')
         df = df.fillna(method='bfill')
+        
 
         df_old = df_me_old_bj[df_me_old_bj.station_id == stationNames_me[i]]
+        df_old = df_old.interpolate()
         df_old = df_old.fillna(method='pad')
         df_old = df_old.fillna(method='bfill')
+
 
         startDate_old = 1
         endDate_old = 365 + 31
@@ -424,6 +433,7 @@ def genFrames_ld(startDate, endDate, save):     #TODO
     df_aq_station = []
     for name in stationNames_aq:
         df = df_aq[df_aq.station_id == name]
+        df = df.interpolate()
         df = df.fillna(method='pad')
         df = df.fillna(method='bfill')
         df = df.fillna(-1)
