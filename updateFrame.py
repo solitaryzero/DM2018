@@ -126,29 +126,36 @@ def genFrames_bj(startDate, endDate, save):
                 flag = False
                 timeSet = df_backup.time.values
 
-            while not (genTimeString(2018, month, day, hour) in timeSet):
-                if (forward):
-                    hour += 1
-                    if (hour == 24):
-                        day += 1
-                        hour = 0
-                        if (day > monthLength[month - 1]):
-                            day = 1
-                            month += 1
-                else:
-                    hour -= 1
-                    if (hour == -1):
-                        day -= 1
-                        hour = 23
-                        if (day == 0):
-                            month -= 1
-                            day = monthLength[month - 1]
-                if (month == 3):
-                    day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
-                    month = int(((j / 24)+startDate-1) / 30) + 4
-                    hour = j % 24
-                    forward = True
-
+            # while not (genTimeString(2018, month, day, hour) in timeSet):
+            #     if (forward):
+            #         hour += 1
+            #         if (hour == 24):
+            #             day += 1
+            #             hour = 0
+            #             if (day > monthLength[month - 1]):
+            #                 day = 1
+            #                 month += 1
+            #     else:
+            #         hour -= 1
+            #         if (hour == -1):
+            #             day -= 1
+            #             hour = 23
+            #             if (day == 0):
+            #                 month -= 1
+            #                 day = monthLength[month - 1]
+            #     if (month == 3):
+            #         day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
+            #         month = int(((j / 24)+startDate-1) / 30) + 4
+            #         hour = j % 24
+            #         forward = True
+            if not (genTimeString(2018, month, day, hour) in timeSet):
+                tmp[j][6] = np.nan
+                tmp[j][7] = np.nan
+                tmp[j][8] = np.nan
+                tmp[j][9] = np.nan
+                tmp[j][10] = np.nan
+                tmp[j][11] = np.nan
+                continue
             if (flag):
                 datLine = df[df.time == genTimeString(2018, month, day, hour)]
             else:
@@ -282,30 +289,37 @@ def genFrames_ld(startDate, endDate, save):  # TODO
             flag = True
             timeSet = df.time.values
 
-            while not (genTimeString(2018, month, day, hour) in timeSet):
-                if (forward):
-                    hour += 1
-                    if (hour == 24):
-                        day += 1
-                        hour = 0
-                        if (day > monthLength[month - 1]):
-                            day = 1
-                            month += 1
-                else:
-                    hour -= 1
-                    if (hour == -1):
-                        day -= 1
-                        hour = 23
-                        if (day == 0):
-                            month -= 1
-                            day = monthLength[month - 1]
-                if (month == 3):
-                    day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
-                    month = int(((j / 24)+startDate-1) / 30) + 4
-                    hour = j % 24
-                    forward = True
-
-            datLine = df[df.time == genTimeString(2018, month, day, hour)]
+            # while not (genTimeString(2018, month, day, hour) in timeSet):
+            #     if (forward):
+            #         hour += 1
+            #         if (hour == 24):
+            #             day += 1
+            #             hour = 0
+            #             if (day > monthLength[month - 1]):
+            #                 day = 1
+            #                 month += 1
+            #     else:
+            #         hour -= 1
+            #         if (hour == -1):
+            #             day -= 1
+            #             hour = 23
+            #             if (day == 0):
+            #                 month -= 1
+            #                 day = monthLength[month - 1]
+            #     if (month == 3):
+            #         day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
+            #         month = int(((j / 24)+startDate-1) / 30) + 4
+            #         hour = j % 24
+            #         forward = True
+            if not (genTimeString(2018, month, day, hour) in timeSet):
+                tmp[j][6] = np.nan
+                tmp[j][7] = np.nan
+                tmp[j][8] = np.nan
+                tmp[j][9] = np.nan
+                tmp[j][10] = np.nan
+                tmp[j][11] = np.nan
+                continue
+            datLine = df[df.time == genTimeString(2018, month, day, hour)].head(1)
             if (len(datLine) > 1):
                 datLine = datLine.drop_duplicates()
             # print(datLine)
