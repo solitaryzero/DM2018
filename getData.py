@@ -1,5 +1,13 @@
 import requests
 
+'''
+# Fetches corresponding data file from remote website with city_str(bj/ld), type_str(aq, meo, grid)
+# and date(day = date minus 2018-03-31)
+# And save it to ./data/
+# input: city_str: bj/ld
+#        type_str: aq,meo.meo_grid
+#        day: date minus 2018-03-31
+'''
 def fetch(type_str,city_str,day):
     month_str = '04'
     if (day > 30):

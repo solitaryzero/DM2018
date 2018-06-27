@@ -4,7 +4,7 @@ files = {'files': open('linearReg_submission.csv', 'rb')}
 data = {
     "user_id": "solitaryzero",
     "team_token": "c7e4335fcf7fced7dd1fc6a7e2adf50057451d226a7e57b759cb62577c72502a",
-    "description": '5-28-submit_linear',
+    "description": '6-1-submit_linear',
     "filename": "linearReg_submission.csv",
 }
 url = 'https://biendata.com/competition/kdd_2018_submit/'

@@ -4,7 +4,13 @@ import numpy as np
 import matplotlib as plt
 from sklearn import datasets, linear_model
 
-
+'''
+# get corresponding data file name with city(bj/ld), data type(air quality, meo, grid) and date(day = date minus 2018-03-31)
+# input: city: bj/ld
+#        type: aq,meo.meo_grid
+#        day: date minus 2018-03-31
+# output: corresponding data file name
+'''
 def getFileName(city, type, day):
     month_str = '04'
     if (day > 30):
@@ -17,6 +23,14 @@ def getFileName(city, type, day):
 
     return './data/' + city + '_' + type + '_' + '2018-'+ month_str + '-' + day_str + '-0-' + '2018-'+ month_str + '-' + day_str + '-23.csv'
 
+'''
+# read all data in one city with certain type, whose date falls in range[startDate,endDate]
+# input: city: bj/ld
+#        type: aq/meo/meo_grid
+#        startDate: first day needs to be read
+#        endDate: last day needs to be read
+# output: related data in one pandas.dataFrame
+'''
 def genDataFrame(city, type, startDate, endDate):
     df = pd.read_csv(filepath_or_buffer=getFileName(city, type, startDate), header=0, index_col='id')
     for i in range(startDate + 1, endDate + 1):
@@ -24,26 +38,38 @@ def genDataFrame(city, type, startDate, endDate):
         df = pd.concat([df, newdf], ignore_index=False)
     return df
 
-
+'''
+# read all available air quality data in history in Beijing
+# output: related data in one pandas.dataFrame
+'''
 def genDataFrame_old_aq_bj():
     df = pd.read_csv(filepath_or_buffer='beijing_17_18_aq.csv', header=0)
     df2 = pd.read_csv(filepath_or_buffer='beijing_201802_201803_aq.csv', header=0)
     df = pd.concat([df, df2], ignore_index=False)
     return df
 
-
+'''
+# read all available air quality data in history in London
+# output: related data in one pandas.dataFrame
+'''
 def genDataFrame_old_aq_ld():
     df = pd.read_csv(filepath_or_buffer='London_historical_aqi_forecast_stations_20180331.csv', header=0, index_col=0)
     df2 = pd.read_csv(filepath_or_buffer='London_historical_aqi_other_stations_20180331.csv', header=0)
     df = pd.concat([df, df2], ignore_index=True)
     return df
 
-
+'''
+# read all available air quality data in history in Beijing
+# output: related data in one pandas.dataFrame
+'''
 def genDataFrame_old_me_bj():
     df = pd.read_csv(filepath_or_buffer='beijing_17_18_meo.csv', header=0)
     return df
 
-
+'''
+# generates a string for certain time point
+# output: string with format of "YYYY-MM-DD HH:00:00"
+'''
 def genTimeString(year, month, day, hour):
     hour_str = str(hour)
     if (hour < 10):
@@ -57,7 +83,10 @@ def genTimeString(year, month, day, hour):
     year_str = str(year)
     return year_str + '-' + month_str + '-' + day_str + ' ' + hour_str + ':00:00'
 
-
+'''
+# generates a string for certain time point with London history data style
+# output: string with format of "YYYY/MM/DD HH:00"
+'''
 def genTimeString_ld_old(year, month, day, hour):
     hour_str = str(hour)
     day_str = str(day)
@@ -65,7 +94,18 @@ def genTimeString_ld_old(year, month, day, hour):
     year_str = str(year)
     return year_str + '/' + month_str + '/' + day_str + ' ' + hour_str + ':00'
 
-
+'''
+# Generates formatted pandas.dataFrame including aq and meo data in Beijing within range [startDate,endDate]
+# The dataFrames are sorted in order of time and will not have any missing timepoint.
+# When finding missing data, try to pad it with last available data before it first, first available data after it second,
+# and np.nan when missing too much at last.
+# After generating, concat the new dataFrame to previous formatted data in ./processedData/{cityname}/{sitename}_{type}.csv
+# Input: startDate: first day needs to be read
+#        endDate: last day needs to be read
+#        save: when true, the dataFrame will be saved to ./processedData/{cityname}/{sitename}_{type}.csv
+# output: df_aq_station: a list including air quality data of every aq site in beijing
+#         df_me_station: a list including meo data of every meo site in beijing
+'''
 def genFrames_bj(startDate, endDate, save):
     siteNum_aq = 35
     siteNum_me = 18
@@ -113,9 +153,25 @@ def genFrames_bj(startDate, endDate, save):
             tmp[j][0] = siteLoc[0]  # 经度
             tmp[j][1] = siteLoc[1]  # 纬度
             tmp[j][2] = 2018  # 年
-            tmp[j][3] = int(((j / 24)+startDate-1) / 30) + 4  # 月
-            tmp[j][4] = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
+            if (endDate == 61):
+                tmp[j][3] = 6
+            else:
+                tmp[j][3] = int(((j / 24)+startDate-1) / 30) + 4  # 月
+            if (endDate == 61):
+                tmp[j][4] = 31
+            else:
+                tmp[j][4] = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
             tmp[j][5] = j % 24  # 小时
+			
+            if (endDate == 61):
+                month = 6
+            else:
+                month = int(((j / 24)+startDate-1) / 30) + 4  # 月
+            if (endDate == 61):
+                month = 31
+            else:
+                month = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
+			
             day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
             month = int(((j / 24)+startDate-1) / 30) + 4
             hour = j % 24
@@ -245,8 +301,18 @@ def genFrames_bj(startDate, endDate, save):
 
     return df_aq_station, df_me_station
 
-
-def genFrames_ld(startDate, endDate, save):  # TODO
+'''
+# Generates formatted pandas.dataFrame of aq data in London within range [startDate,endDate]
+# The dataFrames are sorted in order of time and will not have any missing timepoint.
+# When finding missing data, try to pad it with last available data before it first, first available data after it second,
+# and np.nan when missing too much at last.
+# After generating, concat the new dataFrame to previous formatted data in ./processedData/{cityname}/{sitename}_{type}.csv
+# Input: startDate: first day needs to be read
+#        endDate: last day needs to be read
+#        save: when true, the dataFrame will be saved to ./processedData/{cityname}/{sitename}_{type}.csv
+# output: df_aq_station: a list including air quality data of every aq site in London
+'''
+def genFrames_ld(startDate, endDate, save):
     locDict_aq = {}
     with open('London_AirQuality_Stations.csv', 'r') as locFile:
         line = locFile.readline()
@@ -279,11 +345,24 @@ def genFrames_ld(startDate, endDate, save):  # TODO
             tmp[j][0] = siteLoc[0]  # 经度
             tmp[j][1] = siteLoc[1]  # 纬度
             tmp[j][2] = 2018  # 年
-            tmp[j][3] = int(((j / 24)+startDate-1) / 30) + 4  # 月
-            tmp[j][4] = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
+            if (endDate == 61):
+                tmp[j][3] = 6
+            else:
+                tmp[j][3] = int(((j / 24)+startDate-1) / 30) + 4  # 月
+            if (endDate == 61):
+                tmp[j][4] = 31
+            else:
+                tmp[j][4] = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
             tmp[j][5] = j % 24  # 小时
-            day = (int(j / 24) % 30 + startDate - 1) % 30 + 1
-            month = int(((j / 24)+startDate-1) / 30) + 4
+			
+            if (endDate == 61):
+                month = 6
+            else:
+                month = int(((j / 24)+startDate-1) / 30) + 4  # 月
+            if (endDate == 61):
+                month = 31
+            else:
+                month = (int(j / 24) % 30 + startDate - 1) % 30 + 1  # 日
             hour = j % 24
             forward = False
             flag = True
@@ -340,7 +419,12 @@ def genFrames_ld(startDate, endDate, save):  # TODO
 
     return df_aq_station
 
-
+'''
+# Reads formatted data in ./processedData/beijing/{sitename}_{type}.csv and returns corresponding pandas.dataFrame
+# The dataFrames share same structrue with result of genFrames_bj
+# output: df_aq_station: a list including air quality data of every aq site in beijing
+#         df_me_station: a list including meo data of every meo site in beijing
+'''
 def readProcessedData_bj():
     locList_aq = []
     with open('location_aq.txt', 'r') as locFile:
@@ -370,7 +454,12 @@ def readProcessedData_bj():
 
     return df_aq_station, df_me_station
 
-
+'''
+# Reads formatted data in ./processedData/london/{sitename}_{type}.csv and returns corresponding pandas.dataFrame
+# The dataFrames share same structrue with result of genFrames_ld
+# output: df_aq_station: a list including air quality data of every aq site in London
+#         df_me_station: a list including meo data of every meo site in London
+'''
 def readProcessedData_ld():
     locList_aq = []
     with open('London_AirQuality_Stations.csv', 'r') as locFile:

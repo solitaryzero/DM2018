@@ -3,6 +3,12 @@ import numpy as np
 import matplotlib as plt
 from sklearn import datasets, linear_model
 
+'''
+# This program fills missing data (nan) in formatted dataFrame.
+# Abnormal data(value>10000) will be abandoned too.
+# When filling, use 'pad' first, 'bfill' second, and replace missing data with -1 as a last resort.
+'''
+
 locList_aq = []
 with open('location_aq.txt', 'r') as locFile:
     line = locFile.readline()

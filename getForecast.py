@@ -1,5 +1,13 @@
 import requests
 
+'''
+# Fetches corresponding forecast file from remote website with city_str(bj/ld),
+# and date(day = date minus 2018-03-31)
+# And save it to ./data/forecast/
+# input: city_str: bj/ld
+#        type_str: aq,meo.meo_grid
+#        day: date minus 2018-03-31
+'''
 def fetch(city_str,day):
     month_str = '04'
     if (day > 30):
